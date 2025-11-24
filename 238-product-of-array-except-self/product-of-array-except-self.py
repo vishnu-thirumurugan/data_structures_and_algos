@@ -1,29 +1,22 @@
 class Solution:
     def productExceptSelf(self, nums: List[int]) -> List[int]:
-        # solving using division is also tricky
-        product = 1
-        for i in nums:
-            product = product * i
-
-        zero_less_product = 1
-        if nums.count(0) > 1: # if u have multiple zeros, its any way zero
-            zero_less_product = 0
-        else:
-            for i in nums:
-                if i != 0:
-                    zero_less_product = zero_less_product * i
-
-        
-
         n = len(nums)
+        ans = [0] * n
 
+        # --- Pass 1: Calculate Left Products ---
+        # Initialize with 1 (neutral multiplication element)
+        current_prefix = 1
         for i in range(n):
-            if nums[i] != 0:
-                nums[i] = product//nums[i]
-            else:
-                nums[i] = zero_less_product
+            ans[i] = current_prefix
+            current_prefix = current_prefix * nums[i]
 
-        return nums
+        # --- Pass 2: Calculate Right Products & Final Result ---
+        # Initialize with 1
+        current_suffix = 1
+        for i in range(n - 1, -1, -1):
+            # Multiply the stored Left Product by the current Right Product
+            ans[i] = ans[i] * current_suffix
+            # Update the running suffix product
+            current_suffix = current_suffix * nums[i]
 
-
-        
+        return ans
