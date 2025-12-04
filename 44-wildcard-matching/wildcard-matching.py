@@ -1,15 +1,6 @@
 class Solution:
     def isMatch(self, s: str, p: str) -> bool:
-        p = list(p)  # convert to list (required because strings are immutable)
-
-        write = 0
-        for read in range(len(p)):
-            if write == 0 or p[read] != "*" or p[write-1] != "*":
-                p[write] = p[read]
-                write += 1
-
-        p = "".join(p[:write])
-
+        
         n, m = len(s), len(p)
 
         # Using a dictionary or @cache for memoization
@@ -33,9 +24,14 @@ class Solution:
             if p[j] == s[i] or p[j] == '?':
                 res = dp(i + 1, j + 1)
             elif p[j] == '*':
+                
+                k = j
+                while k < m and p[k] == '*':
+                    k += 1
                 # Option 1: Treat '*' as empty (skip pattern index)
                 # Option 2: Treat '*' as consuming s[i] (skip string index)
-                res = dp(i, j + 1) or dp(i + 1, j)
+
+                res = dp(i, k) or dp(i + 1, k-1)
             else:
                 res = False
             
