@@ -1,15 +1,15 @@
 class Solution:
     def isMatch(self, s: str, p: str) -> bool:
-        new_p = []
+        new_p = ''
         for x in p:
-            if new_p == []:
-                new_p.append(x)
+            if new_p == '':
+                new_p += x
             elif x == "*" and new_p[-1]== "*":
                 continue
             else:
-                new_p.append(x)
+                new_p += x
 
-        p = ''.join(new_p)
+        p = new_p
 
         n, m = len(s), len(p)
 
