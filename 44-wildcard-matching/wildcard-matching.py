@@ -1,15 +1,14 @@
 class Solution:
     def isMatch(self, s: str, p: str) -> bool:
-        new_p = ''
-        for x in p:
-            if new_p == '':
-                new_p += x
-            elif x == "*" and new_p[-1]== "*":
-                continue
-            else:
-                new_p += x
+        p = list(p)  # convert to list (required because strings are immutable)
 
-        p = new_p
+        write = 0
+        for read in range(len(p)):
+            if write == 0 or p[read] != "*" or p[write-1] != "*":
+                p[write] = p[read]
+                write += 1
+
+        p = "".join(p[:write])
 
         n, m = len(s), len(p)
 
