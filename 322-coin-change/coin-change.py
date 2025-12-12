@@ -13,7 +13,7 @@ class Solution:
 
             best = float('inf')
             for coin in coins:
-                best = min(best, 1 + helper(curr_target-coin))
+                best = min(best, 1 + helper(curr_target-coin)) # if u take a coin required amount changes
             return best
 
         res = helper(amount)
