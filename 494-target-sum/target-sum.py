@@ -27,7 +27,6 @@ class Solution:
                 return 0
 
             ways = helper(index+1, curr_target)
-            print(index+1, curr_target)
             if nums[index] <= curr_target:
                 ways += helper(index+1, curr_target-nums[index]) # leave or take
 
