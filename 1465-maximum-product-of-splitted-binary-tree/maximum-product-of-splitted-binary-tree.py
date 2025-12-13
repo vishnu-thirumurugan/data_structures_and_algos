@@ -8,7 +8,7 @@ class Solution:
     def maxProduct(self, root: Optional[TreeNode]) -> int:
         node_sum = {None:0}
 
-        def dfs(root):
+        def dfs(root): # calculate sum for each node
             if not root:
                 return 0
             left = dfs(root.left)
@@ -19,17 +19,14 @@ class Solution:
             return node_sum[root]
 
         dfs(root)
-        self.res = 0
-        def dfs(node):
-            if not node:
-                return 
-            self.res = max(self.res, node_sum[node]*(node_sum[root]-node_sum[node]))
+     
+        res = 0
 
-            dfs(node.left)
-            dfs(node.right)
+        for _ , summ in node_sum.items(): # update res based on each edge
+            res = max(res, summ * (node_sum[root] - summ))
 
-        dfs(root)
-        return self.res % (10**9 + 7)
+        
+        return res % (10**9 + 7)
 
             
 
