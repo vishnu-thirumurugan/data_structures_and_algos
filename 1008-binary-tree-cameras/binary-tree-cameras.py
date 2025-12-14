@@ -23,15 +23,14 @@ class Solution:
 
             if left_state == 0 or right_state == 0:
                 self.cameras += 1
-                root.val = 1 # put camera 
+                return 1 # put camera 
             
             elif left_state == 1 or right_state == 1: # has coverage from child --> tell parent, I am safe
-                root.val = 2
+                return 2
 
-            else: # all my children has coverage --> wait --> parent can give you coverage
-                pass
-            
-            return root.val # you can return in if else loop itself, dont need to update root.val
+            # else: # all my children has coverage --> wait --> parent can give you coverage
+                # pass
+            return 0 
 
         # handle for root as well
         root_state = dfs(root)
