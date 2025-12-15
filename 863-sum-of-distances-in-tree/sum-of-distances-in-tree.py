@@ -15,13 +15,13 @@ class Solution:
 
         def dfs(u, pr):
 
-            size = 1
+            subtree_size[u] = 1
             for v in adj[u]:
                 if v != pr:
-                    size += dfs(v, u)
+                    dfs(v, u)
 
-            subtree_size[u] = size
-            return size
+                    subtree_size[u] += subtree_size[v]
+            # return size
 
         dfs(0, -1)
         answer[0] = sum(subtree_size.values()) - subtree_size[0]
