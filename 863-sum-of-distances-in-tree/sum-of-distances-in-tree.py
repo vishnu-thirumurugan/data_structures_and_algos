@@ -1,44 +1,42 @@
 class Solution:
     def sumOfDistancesInTree(self, n: int, edges: List[List[int]]) -> List[int]:
+        
+        # Brute force is to claculate from each node iusing dfs
+        # O(N * N)
 
-        # create graph from edges
         adj = defaultdict(list)
+
         for u, v in edges:
             adj[u].append(v)
             adj[v].append(u)
 
-        subtree_size = [1] * n
-        sum_dist = [0] * n
+        subtree_size = {}
+        answer = [0] * n
 
-        # in first pass calculate sum_dist[0] and subtree length
-        def dfs_post_order(node, parent):
-            for child in adj[node]:
-                if  child != parent:
-                    dfs_post_order(child, node)
+        def dfs(u, pr):
 
-                    subtree_size[node] += subtree_size[child]
-                    sum_dist[node] +=  subtree_size[child] + sum_dist[child] # aggregate till root
+            size = 1
+            for v in adj[u]:
+                if v != pr:
+                    size += dfs(v, u)
 
-        # first pass will calculate only the sum_dist for the sub tree with node as root
-        # for all other node, we need to make one more pass to update
+            subtree_size[u] = size
+            return size
 
-        dfs_post_order(0, -1) # bottom up
+        dfs(0, -1)
+        answer[0] = sum(subtree_size.values()) - subtree_size[0]
 
-        # the other pass can be either bds or dfs
-        q = deque([(node,0) for node in adj[0]]) # first genration children in queue init
+        q = deque([(node, 0) for node in adj[0]])
 
         while q:
-            node, parent = q.popleft()
-            # update answer
-            sum_dist[node] = sum_dist[parent] - subtree_size[node] + (n - subtree_size[node])
-            # for a node, all the nodes in its subtree, becomes a step closer --> subtract
-            # all the nodes, outside becomes a step farther --> add
+            node, pr = q.popleft()
+            answer[node] = answer[pr] - subtree_size[node] + (n - subtree_size[node])
 
-            for child in adj[node]:
-                if child != parent:
-                    q.append((child, node))
+            for v in adj[node]:
+                if v != pr:
+                    q.append((v, node))
 
-        return sum_dist
-
+        return answer
 
         
+
