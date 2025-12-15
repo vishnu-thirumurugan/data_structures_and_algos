@@ -10,12 +10,11 @@ class Solution:
             adj[u].append(v)
             adj[v].append(u)
 
-        subtree_size = {}
+        subtree_size = [1] * n
         answer = [0] * n
 
         def dfs(u, pr):
 
-            subtree_size[u] = 1
             for v in adj[u]:
                 if v != pr:
                     dfs(v, u)
@@ -24,7 +23,7 @@ class Solution:
             # return size
 
         dfs(0, -1)
-        answer[0] = sum(subtree_size.values()) - subtree_size[0]
+        answer[0] = sum(subtree_size) - subtree_size[0]
 
         q = deque([(node, 0) for node in adj[0]])
 
