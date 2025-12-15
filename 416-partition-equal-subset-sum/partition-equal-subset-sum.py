@@ -27,15 +27,16 @@ class Solution:
             # main recursion
 
             # leave
-            if helper(idx+1, curr_target): # no change in target,as u didnt take 
+            leave = helper(idx+1, curr_target) # no change in target,as u didnt take 
+
+            if leave:
                 return True
 
-            # take
+            take = False
             if nums[idx] <= curr_target:
-                if helper(idx+1, curr_target - nums[idx]):
-                    return True
+                take = helper(idx+1, curr_target - nums[idx])
 
-            return False # if both branches were false 
+            return take
 
         return helper(0,target)
 
