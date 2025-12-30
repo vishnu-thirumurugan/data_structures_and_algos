@@ -18,7 +18,7 @@ class Solution:
                     continue # to next branch
 
                 if curr_target < 0:
-                    return
+                    break
 
                 backtrack(i+1, path+[candidates[i]], curr_target - candidates[i])
 
