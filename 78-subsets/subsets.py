@@ -10,11 +10,8 @@ class Solution:
             # either u take and explore or leave and explore
 
             # take and explore
-            path.append(nums[idx])
-            backtrack(idx+1, path)
-
+            backtrack(idx+1, path + [nums[idx]])
             # leave and explore
-            path.pop()
             backtrack(idx+1, path)
 
         res = []
