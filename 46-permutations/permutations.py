@@ -7,7 +7,7 @@ class Solution:
         n = len(nums)
         res = []
 
-        def backtrack(start):
+        def backtrack(nums,start):
             if start == n:
                 # no more swapping 
                 res.append(nums.copy())
@@ -15,10 +15,10 @@ class Solution:
 
             for i in range(start, n):
                 nums[i], nums[start] = nums[start], nums[i]
-                backtrack(start + 1)
+                backtrack(nums,start + 1)
                 nums[i], nums[start] = nums[start], nums[i]
 
-        backtrack(0)
+        backtrack(nums,0)
         return res
 
 
