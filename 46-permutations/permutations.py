@@ -1,26 +1,28 @@
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
-        n = len(nums)
+        # swapping technique
+        # no extra space
+        # most optimal (learnt from chat gpt and tuf)
 
-        boolean_map = [False]*n
+        n = len(nums)
         res = []
 
-        def backtrack(path, boolean_map):
-            if len(path) == n:
-                res.append(path.copy())
+        def backtrack(start):
+            if start == n:
+                # no more swapping 
+                res.append(nums.copy())
                 return
 
-            for i in range(n):
-                print(boolean_map)
-                if boolean_map[i] == False:
-                    path.append(nums[i])
-                    boolean_map[i] = True
-                    backtrack(path, boolean_map)
-                    path.pop()
-                    boolean_map[i] = False
+            for i in range(start, n):
+                nums[i], nums[start] = nums[start], nums[i]
+                backtrack(start + 1)
+                nums[i], nums[start] = nums[start], nums[i]
 
-        backtrack([],boolean_map)
+        backtrack(0)
         return res
+
+
+
 
             
         
