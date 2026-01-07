@@ -4,7 +4,7 @@ class Solution:
         # if there is a zero, you can consider it as black hole and sink all negatives there
         # it is handles implicitly, not explicitly
 
-        min_abs = math.inf
+        min_abs = float('inf')
         negative = 0
         total_sum = 0
 
