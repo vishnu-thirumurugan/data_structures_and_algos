@@ -1,23 +1,26 @@
 class Solution:
     def countAndSay(self, n: int) -> str:
-        
-        s = '1' # default answer
-
+        # without while loop
+        s = '1'
+        # do repeatedly until u get to n
         for _ in range(n-1):
-            i = 0
-            res = []
-            while i < len(s):
-                j = i 
-                while j < len(s) and s[j] == s[i]:
-                    j += 1
-                res.append(str(j-i))
-                res.append(s[i])
-                i = j
-
-            s = ''.join(res)
-
+            res = ''
+            count = 1
+            # traverse until the string length
+            for i in range(1, len(s)):
+                if s[i] == s[i-1]:
+                    count += 1
+                else:
+                    res += str(count)
+                    res += s[i-1]
+                    count = 1
+            # print(s)
+            res += str(count)
+            res += s[-1]
+            s = res
+            # print(s)
         return s
-
+        
 
 
             
