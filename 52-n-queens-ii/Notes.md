@@ -1,1 +1,1 @@
-<h2>n-queens-ii Notes</h2><hr>[ Time taken: 12 m 25 s ]
+<h2>n-queens-ii Notes</h2><hr>[ Time taken: 5 m 14 s ]
