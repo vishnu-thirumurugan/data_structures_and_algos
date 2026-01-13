@@ -6,27 +6,44 @@
 #         self.right = right
 class Solution:
     def maxProduct(self, root: Optional[TreeNode]) -> int:
-        node_sum = {None:0}
 
-        def dfs(root): # calculate sum for each node
-            if not root:
+        subtree_sum = {}
+
+        def traversal1(root):
+            # calculates sum of subtree nodes
+            if root == None:
                 return 0
-            left = dfs(root.left)
-            right = dfs(root.right)
 
-            node_sum[root] = left + right + root.val
+            left = traversal1(root.left)
+            right = traversal1(root.right)
 
-            return node_sum[root]
+            subtree_sum[root] =  left + right + root.val
 
-        dfs(root)
-     
-        res = 0
+            return subtree_sum[root]
 
-        for _ , summ in node_sum.items(): # update res based on each edge
-            res = max(res, summ * (node_sum[root] - summ))
+        traversal1(root)
+
+
+        total = subtree_sum[root]
+        self.ans = 0
+        def traversal2(root):
+            if root == None:
+                return
+            if root.left:
+                self.ans = max(self.ans, (total-subtree_sum[root.left])*subtree_sum[root.left])
+            traversal2(root.left)
+            if root.right:
+                self.ans = max(self.ans, (total-subtree_sum[root.right])*subtree_sum[root.right])
+            traversal2(root.right)
+
+
+
+        traversal2(root)
+        return (self.ans)%(10**9 + 7)
+
+            
 
         
-        return res % (10**9 + 7)
 
             
 
