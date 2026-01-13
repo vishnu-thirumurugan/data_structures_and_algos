@@ -20,26 +20,14 @@ class Solution:
             subtree_sum[root] =  left + right + root.val
 
             return subtree_sum[root]
-
         traversal1(root)
 
-
         total = subtree_sum[root]
-        self.ans = 0
-        def traversal2(root):
-            if root == None:
-                return
-            if root.left:
-                self.ans = max(self.ans, (total-subtree_sum[root.left])*subtree_sum[root.left])
-            traversal2(root.left)
-            if root.right:
-                self.ans = max(self.ans, (total-subtree_sum[root.right])*subtree_sum[root.right])
-            traversal2(root.right)
+        ans = 0
+        for node, val in subtree_sum.items():
+            ans = max(ans, (total-val)*val)
 
-
-
-        traversal2(root)
-        return (self.ans)%(10**9 + 7)
+        return (ans)%(10**9+7)
 
             
 
