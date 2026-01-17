@@ -1,16 +1,27 @@
 class Solution:
     def powerfulIntegers(self, x: int, y: int, bound: int) -> List[int]:
-        # brute force
+        # brute force - its exponential
         res = set()
-        i = 0
-        while x ** i < bound:
-            j = 0 
-            while x ** i + y ** j <= bound:
-                res.add(x ** i + y ** j)
-                if y == 1: # the values are going to remain same --> will never cross bound
-                    break
-                j += 1
-            if  x == 1: # outer while will never cross bound
-                break
-            i += 1
+
+        powers_x = [1]
+        powers_y = [1]
+
+        if x != 1:
+            val = x
+            while val < bound:
+                powers_x.append(val)
+                val *= x
+
+        if y != 1:
+            val = y
+            while val < bound:
+                powers_y.append(val)
+                val *= y
+
+
+        for px in powers_x:
+            for py in powers_y:
+                if px+py <= bound:
+                    res.add(px+py)
+
         return list(res)
