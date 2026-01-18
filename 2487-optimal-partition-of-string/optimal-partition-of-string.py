@@ -1,19 +1,24 @@
 class Solution:
     def partitionString(self, s: str) -> int:
-        count = 0
-        # st = ''
-        partition_set = set()
-        for ch in s:
-            if ch in partition_set:
-                # print(st)
-                partition_set.clear()
-                # st = ch
-                partition_set.add(ch)
-                count += 1
-                
+        # bit manipulation > array > set for same o(n)
+        n = len(s)
+        flag = 0
+        count = 1 # string length constraint --> atleast one string will be present
 
-            else:
-                # st += ch
-                partition_set.add(ch)
-                
-        return count + 1
+        i = 0  # index to move on string
+        while i < n:
+            val = ord(s[i])-ord('a')
+            # print(val)
+            if flag & (1<<val): # the element is already present
+                count += 1   # create new sub-string
+                flag = 0   # reset flag for next cycle
+            
+            flag = flag | (1<<val) # if not present keep track / first element of sub-string
+            # print(flag)
+            i+= 1
+
+        return count
+
+
+
+
