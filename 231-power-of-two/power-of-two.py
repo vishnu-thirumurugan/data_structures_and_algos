@@ -1,8 +1,6 @@
 class Solution:
     def isPowerOfTwo(self, n: int) -> bool:
-        if n == 0:
-            return False
-        while n & 1 == 0:
-            n = n >> 1
-        return n == 1
+        # n & - n finds last set bit 
+        if n == 0: return False
+        return n - (n & - n) == 0
         
