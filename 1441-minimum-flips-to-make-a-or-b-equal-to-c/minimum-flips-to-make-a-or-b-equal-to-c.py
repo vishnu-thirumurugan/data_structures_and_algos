@@ -1,43 +1,29 @@
 class Solution:
     def minFlips(self, a: int, b: int, c: int) -> int:
-        # bin conversion
-        a = str(bin(a)[2:])
-        b = str(bin(b)[2:])
-        c = str(bin(c)[2:])
-        a_len = len(a)
-        b_len = len(b)
-        c_len = len(c)
+        
+        # pure bit manipulation way 
 
-        n = max(a_len, b_len, c_len)
-        if a_len < n:
-            a = '0'*(n-len(a)) + a
+        flips = 0 
 
-        if b_len < n:
-            b = '0'*(n-len(b)) + b
+        while a > 0 or b > 0 or c > 0:
+            abit = a & 1
+            bbit = b & 1
+            cbit = c & 1
 
-        if c_len < n:
-            c = '0'*(n-len(c)) + c
+            if cbit == 1:
+                # any one bit should be 1 
+                if abit | bbit == 0:
+                    flips += 1
 
-        # print(a,b,c)
+            else: # cbit = 0
+                flips += abit + bbit
 
-        count = 0
-        for i in range(n):
+            # go to the next bits
+            a= a>>1
+            b = b>>1
+            c = c>>1
 
-            if c[i] == '1':
-                if int(a[i]) | int(b[i]) != 1:
-                    count += 1
-
-            else: # bit is zero --> both should be zero
-                if a[i] == b[i]: # they must be zero or 1
-                    if a[i] == '1':# flip both bits
-                        count += 2
-                    # else: if 0, no flip needed
-                else: # flip '1' to zero other is already zero
-                    count += 1
-
-            # print(count)
-
-        return count
+        return flips
                         
 
 
