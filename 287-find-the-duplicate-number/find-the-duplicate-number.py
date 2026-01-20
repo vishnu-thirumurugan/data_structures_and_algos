@@ -3,28 +3,22 @@ class Solution:
         n = len(nums)
         # nums.sort()
         
-        left, right = 1, n
-        
-        while left <= right:
-            count_left, count_right = 0, 0
+        left, right= 1, n-1
+
+        while left < right:
+            count = 0
             mid = (left+right)//2
             for i in nums:
-                if i < mid:
-                    count_left += 1
-                elif i > mid:
-                    count_right += 1
-
-            if count_left + count_right not in (n, n-1):
-                return mid
-
-            elif count_left >= mid:
-                ans = mid
-                right = mid - 1
+                if i <= mid:
+                    count += 1
+            if count > mid:
+                # ans = mid
+                right = mid
             else:
-                ans = mid
-                left = mid+1
+                # ans = mid
+                left = mid + 1
 
-        return ans
+        return left
 
 
         
