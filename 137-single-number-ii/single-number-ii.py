@@ -1,18 +1,17 @@
 class Solution:
     def singleNumber(self, nums: List[int]) -> int:
-        ans = 0
-        for i in range(32): # 32 bit integer
-            ibit_sum = 0 
-            for num in nums:
-                ibit_sum += (num >> i) & 1
-            ibit_sum %= 3 # --> you get zero or 1 
-            if ibit_sum != 0:
-                ans |= (1 << i)
+        ones = 0 # if the number appeared ones (3k+1)
+        twos = 0 # if the number appeared twice (3k+2) 
+        # if it appears thrice (3k+3), i dont need to keep track -> it wont be ans
 
-        if ans >= (1 << 31):
-            ans -= (1 << 32)
+        for x in nums:
+            ones = (ones ^ x) & ~twos # include the number if its not in twos (only first appearance, not third)
+            twos = (twos ^ x) & ~ones # include only second appeance + remove thrid appearance
 
-        return ans
+        # as everything is happening bitwise, on a whole you will get answer
+        return ones
+
+
 
             
 
