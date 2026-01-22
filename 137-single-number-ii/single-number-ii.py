@@ -1,7 +1,20 @@
 class Solution:
     def singleNumber(self, nums: List[int]) -> int:
-        c = Counter(nums)
-        for x in nums:
-            if c[x] == 1:
-                return x
+        ans = 0
+        for i in range(32): # 32 bit integer
+            ibit_sum = 0 
+            for num in nums:
+                if (num >> i) & 1:
+                    ibit_sum += 1
+                    ibit_sum %= 3 # --> you get zero or 1 
+            if ibit_sum != 0:
+                ans |= (ibit_sum << i)
+
+        if ans >= (1 << 31):
+            ans -= (1 << 32)
+
+        return ans
+
+            
+
             
