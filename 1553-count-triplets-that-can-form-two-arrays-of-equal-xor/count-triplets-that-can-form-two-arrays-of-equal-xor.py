@@ -1,22 +1,26 @@
 class Solution:
     def countTriplets(self, arr: List[int]) -> int:
         n = len(arr)
-        prefix_xors = [0]*(n+1)
+
+        pref_xors = [0 for _ in range(n+1)]
+
 
         for i in range(n):
-            prefix_xors[i+1] = prefix_xors[i] ^ arr[i]
+            pref_xors[i+1] = pref_xors[i] ^ arr[i]
 
-
+        # if two values are equal their xor will be zero
+        # find i and k such that xor range is 0 
+        # add count of all possible values of j from i to k 
         res = 0
         for i in range(n-1):
-            for j in range(i+1, n):
-                for k in range(j,n):
-                    xor1 = prefix_xors[j-1+1] ^ prefix_xors[i]
-                    xor2 = prefix_xors[k+1] ^ prefix_xors[j]
-
-                    if xor1 == xor2:
-                        res += 1
+            for k in range(i+1, n):
+                if pref_xors[k+1] - pref_xors[i] == 0:
+                    # xors of (i to j - 1) and (j to k) are equal for all values of j
+                    res += k - i
 
         return res
+
+
+        
 
         
