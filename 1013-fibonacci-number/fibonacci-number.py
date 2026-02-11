@@ -1,16 +1,14 @@
 class Solution:
     def fib(self, n: int) -> int:
-        memo = {}
-        if n == 0 or n == 1:
-            memo[n] = n
-            return n 
+        if n <= 1:
+            return n
+            
+        table = [0]*(n+1)
+        table[0] = 0
+        table[1] = 1
 
-        if n in memo:
-            return memo[n]
-
-        memo[n-1] = self.fib(n-1)
-        memo[n-2] = self.fib(n-2)
-
-        return memo[n-1] + memo[n-2]
-
+        for i in range(2,len(table)):
+            table[i] = table[i-1] + table[i-2]
+        
+        return table[-1]
         
