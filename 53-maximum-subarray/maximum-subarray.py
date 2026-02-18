@@ -1,14 +1,9 @@
 class Solution:
-    def maxSubArray(self, arr: List[int]) -> int:
-        # kadane's algorithm
-        res = arr[0]
+    def maxSubArray(self, nums: List[int]) -> int:
+        max_sum = res =  nums[0]
 
-        max_ending = arr[0]
-
-        for i in range(1, len(arr)):
-            max_ending = max(max_ending+arr[i], arr[i])
-
-            res = max(max_ending, res)
+        for i in range(1, len(nums)):
+            max_sum = max(max_sum+nums[i], nums[i])
+            res = max(res, max_sum)
 
         return res
-        
