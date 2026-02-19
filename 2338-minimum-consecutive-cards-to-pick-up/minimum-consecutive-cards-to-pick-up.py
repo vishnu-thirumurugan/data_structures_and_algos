@@ -9,6 +9,4 @@ class Solution:
 
             lastSeen[cards[i]] = i
 
-        if minLength != float('inf'):
-            return minLength
-        return -1
+        return - 1 if minLength  == float('inf') else minLength
