@@ -1,25 +1,27 @@
 class Solution:
     def checkValidString(self, s: str) -> bool:
-        leftMax = 0  # max number of left open brackets we can have
-        leftMin = 0  # min number of left open brackets we can have
-
-        for ch in s:
-            if ch =='(':
-                leftMax += 1
-                leftMin += 1
-            elif ch == ')':
-                leftMax -= 1
-                leftMin -= 1
-
-            else: # * character
-                leftMax += 1
-                leftMin -= 1
-            
-            if leftMax < 0:
-                # ))((
-                return False
-            
-            leftMin = max(leftMin,0)
-
-        return leftMin == 0
+        open_stack = []
+        star_stack = []
         
+        for i, ch in enumerate(s):
+            if ch == '(':
+                open_stack.append(i)
+            elif ch == '*':
+                star_stack.append(i)
+            else:  # ')'
+                if open_stack:
+                    open_stack.pop()
+                elif star_stack:
+                    star_stack.pop()
+                else:
+                    return False
+        
+        # match remaining '(' with '*' appearing AFTER them
+        while open_stack and star_stack:
+            if open_stack[-1] < star_stack[-1]:
+                open_stack.pop()
+                star_stack.pop()
+            else:
+                return False
+        
+        return len(open_stack) == 0
