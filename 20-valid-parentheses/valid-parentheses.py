@@ -2,21 +2,18 @@ class Solution:
     def isValid(self, s: str) -> bool:
         stack = []
 
-        def isMatching(a,b):
-            if (a=='(' and b ==')') or (a=='[' and b ==']') or (a=='{' and b =='}'):
-                return True
-            return False
-
         for i in s:
             if i in ('(','{','['):
                 stack.append(i)
             else: 
                 if not stack:
                     return False
-                elif isMatching(stack[-1],i) == False:
+                if not ((stack[-1]=='(' and i ==')') 
+                        or (stack[-1]=='{' and i =='}') 
+                        or (stack[-1]=='[' and i ==']')):
                     return False
-                else:
-                    stack.pop()
+                
+                stack.pop()
 
         if stack:
             return False
