@@ -3,10 +3,20 @@ class Solution:
         """
         Do not return anything, modify matrix in-place instead.
         """
-        res = [list(reversed(list(i))) for i in zip(*matrix)]
+        # inplace with intuition
+        
+        n = len(matrix)
+        
+        # transpose
+        for i in range(n):
+            for j in range(i+1,n):
+                matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
 
-        for i in range(len(matrix)):
-            for j in range(len(matrix[0])):
-                matrix[i][j] = res[i][j]
+        # reverse each row
+        for row in matrix:
+            row.reverse()
+
+
+
 
         
