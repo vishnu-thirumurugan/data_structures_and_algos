@@ -5,6 +5,7 @@ class Solution:
         if n==1:
             return s
         res = ""
+        ans_l, ans_r = 0,0
         # expand around the centre
         for i in range(n):
             # odd length
@@ -13,7 +14,7 @@ class Solution:
                 if s[left] == s[right]:
                     if right-left+1 > maxLength:
                         maxLength = right-left+1
-                        res = s[left:right+1]
+                        ans_l, ans_r = left,right
                     left -= 1
                     right += 1
                 else:
@@ -24,12 +25,13 @@ class Solution:
                 if s[left] == s[right]:
                     if right-left+1 > maxLength:
                         maxLength = right-left+1
-                        res = s[left:right+1]
+                        ans_l= left
+                        ans_r = right
                     left -= 1
                     right += 1
                 else:
                     break
 
-        return res
+        return s[ans_l:ans_r+1]
         
         
