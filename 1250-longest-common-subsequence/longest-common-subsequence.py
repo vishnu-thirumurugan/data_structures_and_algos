@@ -1,28 +1,23 @@
 class Solution:
-    def longestCommonSubsequence(self, s1: str, s2: str) -> int:
-        m, n = len(s1), len(s2)
+    def longestCommonSubsequence(self, s: str, t: str) -> int:
+        m = len(s)
+        n = len(t)
 
         memo = {}
 
-        def helper(i,j):
+        def dp(i,j):
+            if i == m or j == n:
+                return 0
+
             if (i,j) in memo:
                 return memo[(i,j)]
 
-            # base case:
-            if i == m or j == n: # empty string
-                return 0 
-
-            # current indices match --> tracking suffixes
-            if s1[i] == s2[j]:
-                res = 1 + helper(i+1, j+1)
-
+            if s[i] == t[j]:
+                # inc length
+                memo[(i,j)] = 1 + dp(i+1, j+1)
             else:
-                # no match -> explore both branch
-                res = max(helper(i+1,j), helper(i, j+1))
-
-            memo[(i,j)] = res
+                memo[(i,j)] = max(dp(i+1,j), dp(i, j+1))
 
             return memo[(i,j)]
 
-        return helper(0,0)
-
+        return dp(0,0)
