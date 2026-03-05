@@ -1,6 +1,7 @@
 class Solution:
     def isIsomorphic(self, s: str, t: str) -> bool:
         hashMap = {}
+        hashMap2 = {}
 
         for i in range(len(s)):
             if s[i] in hashMap:
@@ -9,8 +10,6 @@ class Solution:
             else:
                 hashMap[s[i]] = t[i]
 
-        hashMap2 = {}
-        for i in range(len(s)):
             if t[i] in hashMap2:
                 if hashMap2[t[i]] != s[i]:
                     return False
@@ -18,4 +17,3 @@ class Solution:
                 hashMap2[t[i]] = s[i]
 
         return True
-        
