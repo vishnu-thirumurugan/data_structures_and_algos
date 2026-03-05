@@ -1,10 +1,13 @@
 class Solution:
     def majorityElement(self, nums: List[int]) -> int:
-        count = 0 
+        d = {}
+
         for num in nums:
-            if count == 0:
-                candidate = num
+            if num not in d:
+                d[num] = 1
+            else:
+                d[num] += 1
 
-            count += 1 if candidate == num else -1
+        d_sorted = sorted(d.items(), key = lambda x : x[1], reverse = True)
 
-        return candidate
+        return   d_sorted[0][0]              
