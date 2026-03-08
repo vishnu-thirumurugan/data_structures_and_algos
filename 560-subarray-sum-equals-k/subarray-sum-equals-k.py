@@ -1,21 +1,19 @@
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
-        prefix_sum = {}
-        current_sum = 0
-        res = 0
+        prefSumCount = {0:1}
 
-        for i in range(len(nums)):
-            current_sum += nums[i]
+        currPrefSum = 0
+        ans = 0
 
-            if current_sum == k:
-                res += 1
+        for num in nums:
+            currPrefSum += num
 
-            if current_sum - k in prefix_sum:
-                res += prefix_sum[current_sum-k]
+            # if x-k in dict, you found a subarray with k
+            if currPrefSum - k in prefSumCount:
+                ans += prefSumCount[currPrefSum-k]
 
-            prefix_sum[current_sum] = prefix_sum.get(current_sum, 0) + 1
+            prefSumCount[currPrefSum] = prefSumCount.get(currPrefSum,0) + 1
 
-        return res
-
+        return ans
         
         
