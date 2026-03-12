@@ -3,10 +3,10 @@ class Solution:
     def topKFrequent(self, nums: List[int], k: int) -> List[int]:
         # most_common() function way
         c = Counter(nums)
-        top_k = c.most_common(k)
+        top_k = sorted(c.items(), key = itemgetter(1), reverse = True)
         res = []
-        for key,_ in top_k:
-            res.append(key)
+        for i in range(k):
+            res.append(top_k[i][0])
         return res
 
             
