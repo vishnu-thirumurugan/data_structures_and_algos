@@ -7,7 +7,8 @@ class Solution:
 
             if key not in anagrams:
                 anagrams[key] = [word]
+            
             else:
                 anagrams[key].append(word)
-
+            
         return list(anagrams.values())
