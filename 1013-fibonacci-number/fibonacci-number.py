@@ -1,15 +1,8 @@
+from functools import lru_cache
 class Solution:
+    @lru_cache(None)
     def fib(self, n: int) -> int:
         if n <= 1:
             return n
-
-        prev = 0
-        curr = 1
-
-        for i in range(n):
-            temp = curr
-            curr = curr + prev
-            prev = temp
-
-        return prev
+        return self.fib(n-1) + self.fib(n-2)
         
