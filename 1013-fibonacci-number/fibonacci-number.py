@@ -1,8 +1,13 @@
-from functools import lru_cache
 class Solution:
-    @lru_cache(None)
     def fib(self, n: int) -> int:
+        memo = {}
         if n <= 1:
+            memo[n] =n
             return n
-        return self.fib(n-1) + self.fib(n-2)
+        if n in memo:
+            return memo[n]
+
+        memo[n-1] = self.fib(n-1)
+        memo[n-2] = self.fib(n-2)
+        return memo[n-1] + memo[n-2]
         
