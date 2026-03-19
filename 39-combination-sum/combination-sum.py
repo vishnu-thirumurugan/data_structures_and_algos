@@ -3,22 +3,22 @@ class Solution:
         res = []
         n = len(candidates)
 
-        def backtrack(idx, path, curr_target):
-            if idx == n and curr_target == 0:
+        def backtrack(idx, path, currTarget):
+            if idx == n and currTarget == 0:
                 res.append(path.copy())
                 return
 
-            if idx >= n or curr_target < 0:
+            if currTarget < 0 or idx >= n :
                 return
 
-            # pick
             path.append(candidates[idx])
-            backtrack(idx,path, curr_target-candidates[idx]) # you can use the same element again
+            backtrack(idx, path, currTarget-candidates[idx])
             path.remove(candidates[idx])
-            backtrack(idx+1, path, curr_target)
+            backtrack(idx+1,path, currTarget)
 
-        backtrack(0,[],target)
+        backtrack(0, [], target)
         return res
+
 
             
         
