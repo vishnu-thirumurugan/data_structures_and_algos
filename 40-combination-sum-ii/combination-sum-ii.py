@@ -4,8 +4,8 @@ class Solution:
         res = []
         candidates.sort()
 
-        def backtrack(start, path, currSum):
-            if currSum == 0:
+        def backtrack(start, path, curr_target):
+            if curr_target == 0:
                 res.append(path.copy())
                 return
 
@@ -13,14 +13,13 @@ class Solution:
                 if i > start and candidates[i] == candidates[i-1]:
                     continue
 
-                if currSum < 0:
-                    break
+                if curr_target < 0:
+                    return
 
-                backtrack(i+1, path+[candidates[i]], currSum - candidates[i])
+                backtrack(i+1, path+[candidates[i]], curr_target-candidates[i])
 
         backtrack(0,[],target)
-        return res
-
+        return res 
             
 
 
