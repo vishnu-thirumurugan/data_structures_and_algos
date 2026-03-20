@@ -1,24 +1,16 @@
 class Solution:
     def combinationSum4(self, nums: List[int], target: int) -> int:
-        memo = {}
+        dp = [0]*(target+1)
+        dp[0] = 1 # not selecting any 
 
-        def dfs(t):
-            if t == 0:
-                return 1
-            if t < 0:
-                return 0 
-
-            if t in memo:
-                return memo[t]
-
-            count = 0
+        for t in range(1,target+1):
             for num in nums:
-                count += dfs(t-num)
+                if target-num >= 0:
+                    dp[t] += dp[t-num]
 
-            memo[t] = count
-            return memo[t]
+        return dp[t] 
 
-        return dfs(target)
+
 
              
         
