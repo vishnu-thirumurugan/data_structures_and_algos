@@ -12,5 +12,4 @@ class Solution:
         return [res[num] for num in nums1]
 
 
-
         
