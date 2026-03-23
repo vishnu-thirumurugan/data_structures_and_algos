@@ -6,15 +6,13 @@ class StockSpanner:
         # stack[-1][1] --> span
         
     def next(self, price: int) -> int:
-        curr_span = 1
+        current_span = 1
         while self.stack and self.stack[-1][0] <= price:
             prev_price, prev_span = self.stack.pop()
-            curr_span += prev_span
-            
-            
-        self.stack.append([price, curr_span])
-        return curr_span
-        
+            current_span += prev_span
+
+        self.stack.append([price, current_span])
+        return current_span
 
         
 
