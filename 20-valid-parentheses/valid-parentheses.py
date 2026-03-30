@@ -3,16 +3,17 @@ class Solution:
         stack = []
 
         for i in s:
-            if i in ('(','{','['):
+            if i in ('(','{', '['):
                 stack.append(i)
-            else: 
+            else:
                 if not stack:
                     return False
-                if not ((stack[-1]=='(' and i ==')') 
-                        or (stack[-1]=='{' and i =='}') 
-                        or (stack[-1]=='[' and i ==']')):
-                    return False
-                
+                else:
+                    if not ((i == ')' and stack[-1] == '(') or 
+                    (i == '}' and stack[-1] == '{') or 
+                    (i==']' and stack[-1] == '[')):
+                        return False
+
                 stack.pop()
 
         if stack:
