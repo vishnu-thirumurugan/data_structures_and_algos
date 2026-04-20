@@ -3,7 +3,8 @@ class Solution:
         words = defaultdict(int)
         banned_set = set(banned)
         clean_paragraph = re.sub(r'[^\w\s]', ' ', paragraph)
-
+        # characters other than a to z A to Z and 0 to 9
+        # replace with ' ' a space because sometimes two words sep by comma gets concatenated
         for word in clean_paragraph.split():
             word = word.strip()
             if word.lower() not in banned_set:
