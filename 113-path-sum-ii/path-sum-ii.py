@@ -18,6 +18,8 @@ class Solution:
 
             if not curr.left and not curr.right and curr_sum == target:
                 res.append(path[:])
+                path.pop()
+                return
 
             else: # explore till last
                 dfs(curr.left, path, curr_sum)
