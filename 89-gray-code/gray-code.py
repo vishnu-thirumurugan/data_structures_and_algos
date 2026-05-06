@@ -3,8 +3,8 @@ class Solution:
         res = [0]
 
         for i in range(n):
-            for num in reversed(res):
-                res.append(num + (1<<i))
+            for j in range(len(res)-1,-1,-1):
+                res.append(res[j] + (1<<i))
 
         return res
         
